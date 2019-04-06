@@ -1,0 +1,42 @@
+<!-- 小程序初始化完成之后，进入在app.json中的pages配置的第一个页面 -->
+<view wx:if="{{canIUse}}">
+  <view class='header'>
+    <!-- <image src='/images/wx_login.jpg' mode="widthFix"></image> -->
+  </view>
+
+  <view class='content'>
+    <view>登录后开发者将获取一些权限</view>
+    <text>- 获取你的公开信息(昵称，头像等)</text>
+    <text>- 基于国家法规要求，对用户进行实名认证，获取你的手机号</text>
+  </view>
+
+  <!-- <button class='bottom' type='primary' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取用户手机号</button> -->
+  <!--2018年4月30日起，使用 button 组件，并将 open-type 指定为 getUserInfo 类型，获取用户基本信息。-->
+  <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">微信登录</button>
+</view>
+
+<view wx:else>请升级微信版本</view>
+
+<!-- 自定义授权弹窗 -->
+<view class="custom-dialog {{showDialog?'':'hide'}}">
+  <view class="inner-content-wrap">
+    <view class="title">微信授权</view>
+
+    <view class="content-wrap">
+      <view class="icon-wrap flex-item">
+        <icon type="success" size="30" color="#1AAD19"/>
+      </view>
+
+      <view class="tips flex-item">授权成功，申请获得以下权限</view>
+
+      <view class="line flex-item"></view>
+
+      <view class="sub-info flex-item">获取您的手机号码</view>
+    </view>
+
+    <view class="btn-list">
+      <button class="btn cancel-btn" bindtap="hideDialog" plain hover-class="btn-hover">拒绝</button>
+      <button class="btn confirm-btn" plain open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" hover-class="btn-hover">允许</button>
+    </view>
+  </view>
+</view>
